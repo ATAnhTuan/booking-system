@@ -1,0 +1,6 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" build-on-make="true" name="booking-system">
+    <output-path>$PROJECT_DIR$/out/artifacts/booking-system</output-path>
+    <root id="root" />
+  </artifact>
+</component>
