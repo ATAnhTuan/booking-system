@@ -1,4 +1,4 @@
-
+package com.bookingSystem;
 
 
 public class Main {
