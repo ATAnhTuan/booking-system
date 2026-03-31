@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.util.List;
+import java.util.Optional;
 
 
 public abstract class BaseRepository<T, ID> implements GenericRepository<T, ID> {
@@ -27,14 +28,14 @@ public abstract class BaseRepository<T, ID> implements GenericRepository<T, ID> 
     }
 
     @Override
-    public T findById(ID id) {
+    public Optional<T> findById(ID id) {
         String sql = "SELECT * FROM " + tableName + " WHERE guid = ?::uuid";
-        return jdbcTemplate.queryForObject(sql, rowMapper, id);
+        return Optional.ofNullable(jdbcTemplate.queryForObject(sql, rowMapper, id));
     }
 
     @Override
     public int deleteById(ID id) {
-        String sql = "DELETE * FROM " + tableName + " WHERE id = ?";
+        String sql = "DELETE FROM " + tableName + " WHERE id = ?";
         return jdbcTemplate.update(sql, id);
     }
 

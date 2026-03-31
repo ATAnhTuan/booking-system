@@ -14,11 +14,6 @@
 
     <!-- Load properties -->
     <context:property-placeholder location="classpath:application.properties"/>
-
-    <!-- Scan Service & Repository -->
-    <context:component-scan base-package="com.bookingSystem.service"/>
-    <context:component-scan base-package="com.bookingSystem.repository"/>
-
     <!-- PostgresSQL DataSource -->
     <bean id="dataSource"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -32,6 +27,12 @@
     <bean id="jdbcTemplate"
           class="org.springframework.jdbc.core.JdbcTemplate">
         <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!-- BCryptPasswordEncoder -->
+    <bean id="passwordEncoder"
+          class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+        <constructor-arg value="12"/>
     </bean>
 
     <!-- Factory bean để tạo Flyway -->
@@ -50,4 +51,17 @@
     </bean>
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
+
+
+    <bean id="userMapper" class="com.bookingSystem.mapper.UserMapper">
+        <constructor-arg ref="passwordEncoder"/>
+    </bean>
+    <bean id="userRepository" class="com.bookingSystem.repository.UserRepository">
+        <constructor-arg ref="jdbcTemplate"/>
+    </bean>
+    <bean id="userService" class="com.bookingSystem.service.UserService">
+        <constructor-arg ref="userMapper"/>
+        <constructor-arg ref="userRepository"/>
+    </bean>
+
 </beans>

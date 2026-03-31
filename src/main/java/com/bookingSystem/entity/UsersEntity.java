@@ -3,7 +3,7 @@ package com.bookingSystem.entity;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public class Users {
+public class UsersEntity {
     private Long id;
     private UUID userGuid;
     private String username;
@@ -15,7 +15,7 @@ public class Users {
     private String phone;
     private LocalDateTime createdAt;
 
-    public Users(String username, String password, String email, String role, String memberRank, boolean active, String phone) {
+    public UsersEntity(String username, String password, String email, String role, String memberRank, boolean active, String phone) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -25,7 +25,7 @@ public class Users {
         this.phone = phone;
     }
 
-    public Users() {
+    public UsersEntity() {
     }
 
     public Long getId() {

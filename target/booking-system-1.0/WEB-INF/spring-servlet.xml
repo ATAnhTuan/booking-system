@@ -12,9 +12,7 @@
          http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <!-- Scan Controllers -->
-    <context:component-scan base-package="com.bookingSystem.controller"/>
     <context:component-scan base-package="com.bookingSystem.config"/>
-
     <!-- Enable annotation MVC -->
     <mvc:annotation-driven/>
 
@@ -24,4 +22,9 @@
 
     <mvc:resources mapping="/webjars/**"
                    location="classpath:/META-INF/resources/webjars/"/>
+
+    <bean id="userController" class="com.bookingSystem.controller.UserController">
+        <constructor-arg ref="userService"/>
+    </bean>
+
 </beans>
