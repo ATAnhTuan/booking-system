@@ -13,6 +13,8 @@
 
     <!-- Scan Controllers -->
     <context:component-scan base-package="com.bookingSystem.config"/>
+    <context:component-scan base-package="com.bookingSystem.exception"/>
+
     <!-- Enable annotation MVC -->
     <mvc:annotation-driven/>
 
@@ -23,8 +25,8 @@
     <mvc:resources mapping="/webjars/**"
                    location="classpath:/META-INF/resources/webjars/"/>
 
-    <bean id="userController" class="com.bookingSystem.controller.UserController">
-        <constructor-arg ref="userService"/>
+    <bean id="userController" class="com.bookingSystem.users.UserController">
+        <constructor-arg name="userService" ref="userService"/>
     </bean>
 
 </beans>

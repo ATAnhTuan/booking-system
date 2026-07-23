@@ -1,3 +1,6 @@
-com\bookingSystem\Main.class
+com\bookingSystem\config\FlywayFactory.class
 com\bookingSystem\config\SwaggerConfig.class
-com\bookingSystem\controller\TestController.class
+com\bookingSystem\exception\GlobalExceptionHandler.class
+com\bookingSystem\config\FlywayConfig.class
+com\bookingSystem\exception\ResourceNotFoundException.class
+com\bookingSystem\Main.class
