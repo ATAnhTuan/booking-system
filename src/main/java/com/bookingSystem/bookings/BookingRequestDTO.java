@@ -1,40 +1,42 @@
 package com.bookingSystem.bookings;
 
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
-public class Booking {
-    private Long id;
+public class BookingRequestDTO {
+    @NotNull(message = "Hotel guid is required")
     private UUID hotelGuid;
+
+    @NotNull(message = "Room guid is required")
     private UUID roomGuid;
-    private UUID bookingGuid;
+
+    @NotNull(message = "User guid is required")
     private UUID userGuid;
+
+    @Pattern(regexp = "^(0|\\+84)[3|5|7|8|9][0-9]{8}$", message = "Contact phone is invalid")
     private String contactPhone;
+
+    @Email(message = "Contact email is invalid")
     private String contactEmail;
+
     private String description;
+
+    @NotNull(message = "Booking start date is required")
     private LocalDate bookingDateStart;
+
+    @NotNull(message = "Booking end date is required")
     private LocalDate bookingDateEnd;
+
+    @NotNull(message = "Price is required")
+    @DecimalMin(value = "0.0", inclusive = true, message = "Price must be greater than or equal to 0")
     private BigDecimal price;
-    private BookingStatus status = BookingStatus.PENDING;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
 
-    public Booking(UUID hotelGuid, UUID roomGuid, UUID userGuid, String contactPhone, String contactEmail, String description, LocalDate bookingDateStart, LocalDate bookingDateEnd, BigDecimal price) {
-        this.hotelGuid = hotelGuid;
-        this.roomGuid = roomGuid;
-        this.userGuid = userGuid;
-        this.contactPhone = contactPhone;
-        this.contactEmail = contactEmail;
-        this.description = description;
-        this.bookingDateStart = bookingDateStart;
-        this.bookingDateEnd = bookingDateEnd;
-        this.price = price;
-    }
-
-    public Booking() {
-    }
+    private BookingStatus status;
 
     public UUID getHotelGuid() {
         return hotelGuid;
@@ -50,14 +52,6 @@ public class Booking {
 
     public void setRoomGuid(UUID roomGuid) {
         this.roomGuid = roomGuid;
-    }
-
-    public UUID getBookingGuid() {
-        return bookingGuid;
-    }
-
-    public void setBookingGuid(UUID bookingGuid) {
-        this.bookingGuid = bookingGuid;
     }
 
     public UUID getUserGuid() {
@@ -116,35 +110,11 @@ public class Booking {
         this.price = price;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public BookingStatus getStatus() {
         return status;
     }
 
     public void setStatus(BookingStatus status) {
         this.status = status;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
     }
 }

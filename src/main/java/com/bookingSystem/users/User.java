@@ -6,7 +6,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "users")
-public class UserEntity {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -15,20 +15,22 @@ public class UserEntity {
     private String username;
     private String password;
     private String email;
-    private String role = "CUSTOMER";
+    @Enumerated(EnumType.STRING)
+    private UserRole role = UserRole.CUSTOMER;
     @Column(name = "member_rank")
-    private String memberRank = "NEW";
+    @Enumerated(EnumType.STRING)
+    private MemberRank memberRank = MemberRank.NEW;
     private boolean active = true;
     private String phone;
     @Column(name = "created_at")
     private LocalDateTime createdAt = LocalDateTime.now();
 
 
-    public UserEntity() {
+    public User() {
     }
 
 
-    public UserEntity(String username, String password, String email, String role, String memberRank, boolean active, String phone) {
+    public User(String username, String password, String email, UserRole role, MemberRank memberRank, boolean active, String phone) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -79,19 +81,19 @@ public class UserEntity {
         this.email = email;
     }
 
-    public String getRole() {
+    public UserRole getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(UserRole role) {
         this.role = role;
     }
 
-    public String getMemberRank() {
+    public MemberRank getMemberRank() {
         return memberRank;
     }
 
-    public void setMemberRank(String memberRank) {
+    public void setMemberRank(MemberRank memberRank) {
         this.memberRank = memberRank;
     }
 

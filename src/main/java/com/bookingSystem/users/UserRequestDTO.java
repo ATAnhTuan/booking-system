@@ -16,8 +16,8 @@ public class UserRequestDTO {
     private String password;
     @Email(message = "Email không đúng định dạng")
     private String email;
-    private String role;
-    private String memberRank;
+    private UserRole role;
+    private MemberRank memberRank;
     //    private boolean active;
     @Pattern(
             regexp = "^(0|\\+84)[3|5|7|8|9][0-9]{8}$",
@@ -25,7 +25,7 @@ public class UserRequestDTO {
     )
     private String phone;
 
-    private UserRequestDTO(String username, String password, String email, String role, String memberRank, String phone) {
+    private UserRequestDTO(String username, String password, String email, UserRole role, MemberRank memberRank, String phone) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -74,19 +74,19 @@ public class UserRequestDTO {
         this.email = email;
     }
 
-    public String getRole() {
+    public UserRole getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(UserRole role) {
         this.role = role;
     }
 
-    public String getMemberRank() {
+    public MemberRank getMemberRank() {
         return memberRank;
     }
 
-    public void setMemberRank(String memberRank) {
+    public void setMemberRank(MemberRank memberRank) {
         this.memberRank = memberRank;
     }
 

@@ -16,7 +16,7 @@ public class UserMapper {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public UserResponseDTO toResponseDTO(UserEntity userEntity) {
+    public UserResponseDTO toResponseDTO(User userEntity) {
         if (userEntity == null) return null;
         UserResponseDTO userResponseDTO = new UserResponseDTO();
         userResponseDTO.setUserGuid(userEntity.getUserGuid());
@@ -31,10 +31,10 @@ public class UserMapper {
     }
 
 
-    public UserEntity toEntity(UserRequestDTO userRequestDTO) {
+    public User toEntity(UserRequestDTO userRequestDTO) {
         if (userRequestDTO == null) return null;
 
-        UserEntity userEntity = new UserEntity();
+        User userEntity = new User();
 
         userEntity.setUserGuid(UUID.randomUUID());
         userEntity.setUsername(userRequestDTO.getUsername());
@@ -48,7 +48,7 @@ public class UserMapper {
         return userEntity;
     }
 
-    public void updateEntityFromDTO(UserRequestDTO dto, UserEntity userEntity) {
+    public void updateEntityFromDTO(UserRequestDTO dto, User userEntity) {
         if (dto == null || userEntity == null) return;
 
         if (dto.getUsername() != null && !dto.getUsername().trim().isEmpty()) {

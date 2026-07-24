@@ -22,7 +22,7 @@ public class UserService {
         return userMapper.toResponseDTO(findUserEntityByGuid(guid));
     }
 
-    private UserEntity findUserEntityByGuid(UUID guid) {
+    private User findUserEntityByGuid(UUID guid) {
         return userDAO.findByGuid(guid)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found: " + guid));
     }
@@ -37,22 +37,22 @@ public class UserService {
 
     @Transactional
     public UserResponseDTO createUser(UserRequestDTO userRequestDTO) {
-        UserEntity newUser = userMapper.toEntity(userRequestDTO);
-        UserEntity savedUser = userDAO.save(newUser);
+        User newUser = userMapper.toEntity(userRequestDTO);
+        User savedUser = userDAO.save(newUser);
         return userMapper.toResponseDTO(savedUser);
     }
 
     @Transactional
     public UserResponseDTO updateUser(UUID guid, UserRequestDTO userRequestDTO) {
-        UserEntity existingUser = findUserEntityByGuid(guid);
+        User existingUser = findUserEntityByGuid(guid);
         userMapper.updateEntityFromDTO(userRequestDTO, existingUser);
-        UserEntity updatedUser = userDAO.update(existingUser);
+        User updatedUser = userDAO.update(existingUser);
         return userMapper.toResponseDTO(updatedUser);
     }
 
     @Transactional
     public void deleteUser(UUID guid) {
-        UserEntity user = findUserEntityByGuid(guid);
+        User user = findUserEntityByGuid(guid);
         userDAO.delete(user);
     }
 }

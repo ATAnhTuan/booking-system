@@ -9,14 +9,14 @@ public class UserResponseDTO {
     private UUID userGuid;
     private String username;
     private String email;
-    private String role;
-    private String memberRank;
+    private UserRole role;
+    private MemberRank memberRank;
     private boolean active;
     private String phone;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdAt;
 
-    public UserResponseDTO(String username, UUID userGuid, String email, String role, String memberRank, boolean active, String phone, LocalDateTime createdAt) {
+    public UserResponseDTO(String username, UUID userGuid, String email, UserRole role, MemberRank memberRank, boolean active, String phone, LocalDateTime createdAt) {
         this.username = username;
         this.userGuid = userGuid;
         this.email = email;
@@ -54,19 +54,19 @@ public class UserResponseDTO {
         this.email = email;
     }
 
-    public String getRole() {
+    public UserRole getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(UserRole role) {
         this.role = role;
     }
 
-    public String getMemberRank() {
+    public MemberRank getMemberRank() {
         return memberRank;
     }
 
-    public void setMemberRank(String memberRank) {
+    public void setMemberRank(MemberRank memberRank) {
         this.memberRank = memberRank;
     }
 

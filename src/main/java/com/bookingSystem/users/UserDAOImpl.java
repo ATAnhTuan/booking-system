@@ -15,36 +15,36 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public UserEntity save(UserEntity user) {
+    public User save(User user) {
         sessionFactory.getCurrentSession().save(user);
         return user;
     }
 
     @Override
-    public UserEntity update(UserEntity user) {
+    public User update(User user) {
         sessionFactory.getCurrentSession().update(user);
         return user;
     }
 
     @Override
-    public void delete(UserEntity user) {
+    public void delete(User user) {
         sessionFactory.getCurrentSession().delete(user);
     }
 
     @Override
-    public Optional<UserEntity> findByGuid(UUID guid) {
+    public Optional<User> findByGuid(UUID guid) {
         Session session = sessionFactory.getCurrentSession();
-        UserEntity user = session
-                .createQuery("from UserEntity where userGuid = :guid", UserEntity.class)
+        User user = session
+                .createQuery("from User where userGuid = :guid", User.class)
                 .setParameter("guid", guid)
                 .uniqueResult();
         return Optional.ofNullable(user);
     }
 
     @Override
-    public List<UserEntity> findAll() {
+    public List<User> findAll() {
         return sessionFactory.getCurrentSession()
-                .createQuery("from UserEntity", UserEntity.class)
+                .createQuery("from User", User.class)
                 .list();
     }
 }

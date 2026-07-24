@@ -1,33 +1,25 @@
 package com.bookingSystem.hotels;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public class Hotels {
-    private Long id;
+public class HotelResponseDTO {
     private UUID hotelGuid;
     private String hotelName;
     private String address;
     private String description;
     private String phone;
     private String email;
-    private HotelStatus status = HotelStatus.ACTIVE;
+    private HotelStatus status;
     private String rating;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdAt;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updatedAt;
-
-    public Hotels(String hotelName, String address, String description, String phone, String email, HotelStatus status, String rating) {
-        this.hotelName = hotelName;
-        this.address = address;
-        this.description = description;
-        this.phone = phone;
-        this.email = email;
-        this.status = status;
-        this.rating = rating;
-    }
-
-    public Hotels() {
-    }
 
     public UUID getHotelGuid() {
         return hotelGuid;
@@ -91,14 +83,6 @@ public class Hotels {
 
     public void setRating(String rating) {
         this.rating = rating;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public LocalDateTime getCreatedAt() {

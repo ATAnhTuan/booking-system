@@ -1,33 +1,19 @@
 package com.bookingSystem.images;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public class Images {
-    private Long id;
+public class ImageResponseDTO {
     private UUID imageGuid;
     private UUID hotelGuid;
     private UUID roomGuid;
     private String imageUrl;
     private String description;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdAt;
-
-    public Images(UUID hotelGuid, UUID roomGuid, String imageUrl) {
-        this.hotelGuid = hotelGuid;
-        this.roomGuid = roomGuid;
-        this.imageUrl = imageUrl;
-    }
-
-    public Images() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public UUID getImageGuid() {
         return imageGuid;

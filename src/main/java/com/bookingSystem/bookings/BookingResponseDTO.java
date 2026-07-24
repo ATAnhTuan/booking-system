@@ -1,39 +1,42 @@
 package com.bookingSystem.bookings;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public class Booking {
-    private Long id;
+public class BookingResponseDTO {
+    private UUID bookingGuid;
     private UUID hotelGuid;
     private UUID roomGuid;
-    private UUID bookingGuid;
     private UUID userGuid;
     private String contactPhone;
     private String contactEmail;
     private String description;
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate bookingDateStart;
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate bookingDateEnd;
+
     private BigDecimal price;
-    private BookingStatus status = BookingStatus.PENDING;
+    private BookingStatus status;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdAt;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updatedAt;
 
-    public Booking(UUID hotelGuid, UUID roomGuid, UUID userGuid, String contactPhone, String contactEmail, String description, LocalDate bookingDateStart, LocalDate bookingDateEnd, BigDecimal price) {
-        this.hotelGuid = hotelGuid;
-        this.roomGuid = roomGuid;
-        this.userGuid = userGuid;
-        this.contactPhone = contactPhone;
-        this.contactEmail = contactEmail;
-        this.description = description;
-        this.bookingDateStart = bookingDateStart;
-        this.bookingDateEnd = bookingDateEnd;
-        this.price = price;
+    public UUID getBookingGuid() {
+        return bookingGuid;
     }
 
-    public Booking() {
+    public void setBookingGuid(UUID bookingGuid) {
+        this.bookingGuid = bookingGuid;
     }
 
     public UUID getHotelGuid() {
@@ -50,14 +53,6 @@ public class Booking {
 
     public void setRoomGuid(UUID roomGuid) {
         this.roomGuid = roomGuid;
-    }
-
-    public UUID getBookingGuid() {
-        return bookingGuid;
-    }
-
-    public void setBookingGuid(UUID bookingGuid) {
-        this.bookingGuid = bookingGuid;
     }
 
     public UUID getUserGuid() {
@@ -114,14 +109,6 @@ public class Booking {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public BookingStatus getStatus() {
