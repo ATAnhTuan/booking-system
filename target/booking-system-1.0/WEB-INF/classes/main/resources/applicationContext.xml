@@ -26,6 +26,12 @@
           class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
         <constructor-arg value="12"/>
     </bean>
+    <bean id="objectMapper" class="com.fasterxml.jackson.databind.ObjectMapper"/>
+    <bean id="jwtTokenProvider" class="com.bookingSystem.auth.JwtTokenProvider">
+        <constructor-arg name="objectMapper" ref="objectMapper"/>
+        <constructor-arg name="secret" value="${auth.jwt.secret}"/>
+        <constructor-arg name="expirationMs" value="${auth.jwt.expiration-ms}"/>
+    </bean>
 
     <bean id="flywayFactory" class="com.bookingSystem.config.FlywayFactory">
         <property name="dataSource" ref="dataSource"/>
@@ -36,6 +42,10 @@
     <bean id="userMapper" class="com.bookingSystem.users.UserMapper">
         <constructor-arg ref="passwordEncoder"/>
     </bean>
+    <bean id="hotelMapper" class="com.bookingSystem.hotels.HotelMapper"/>
+    <bean id="roomMapper" class="com.bookingSystem.rooms.RoomMapper"/>
+    <bean id="bookingMapper" class="com.bookingSystem.bookings.BookingMapper"/>
+    <bean id="imageMapper" class="com.bookingSystem.images.ImageMapper"/>
 
     <bean id="sessionFactory"
           class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
@@ -59,10 +69,47 @@
     <bean id="userDaoImpl" class="com.bookingSystem.users.UserDAOImpl">
         <constructor-arg name="sessionFactory" ref="sessionFactory" />
     </bean>
+    <bean id="hotelDaoImpl" class="com.bookingSystem.hotels.HotelDAOImpl">
+        <constructor-arg name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="roomDaoImpl" class="com.bookingSystem.rooms.RoomDAOImpl">
+        <constructor-arg name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="bookingDaoImpl" class="com.bookingSystem.bookings.BookingDAOImpl">
+        <constructor-arg name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="imageDaoImpl" class="com.bookingSystem.images.ImageDAOImpl">
+        <constructor-arg name="sessionFactory" ref="sessionFactory"/>
+    </bean>
 
     <bean id="userService" class="com.bookingSystem.users.UserService">
         <constructor-arg name="userDAO" ref="userDaoImpl"/>
         <constructor-arg name="userMapper" ref="userMapper"/>
+    </bean>
+    <bean id="authService" class="com.bookingSystem.auth.AuthService">
+        <constructor-arg name="userDAO" ref="userDaoImpl"/>
+        <constructor-arg name="passwordEncoder" ref="passwordEncoder"/>
+        <constructor-arg name="jwtTokenProvider" ref="jwtTokenProvider"/>
+    </bean>
+    <bean id="hotelService" class="com.bookingSystem.hotels.HotelService">
+        <constructor-arg name="hotelDAO" ref="hotelDaoImpl"/>
+        <constructor-arg name="hotelMapper" ref="hotelMapper"/>
+    </bean>
+    <bean id="roomService" class="com.bookingSystem.rooms.RoomService">
+        <constructor-arg name="roomDAO" ref="roomDaoImpl"/>
+        <constructor-arg name="roomMapper" ref="roomMapper"/>
+    </bean>
+    <bean id="bookingService" class="com.bookingSystem.bookings.BookingService">
+        <constructor-arg name="bookingDAO" ref="bookingDaoImpl"/>
+        <constructor-arg name="bookingMapper" ref="bookingMapper"/>
+    </bean>
+    <bean id="imageService" class="com.bookingSystem.images.ImageService">
+        <constructor-arg name="imageDAO" ref="imageDaoImpl"/>
+        <constructor-arg name="imageMapper" ref="imageMapper"/>
+    </bean>
+    <bean id="jwtAuthenticationFilter" class="com.bookingSystem.auth.JwtAuthenticationFilter">
+        <constructor-arg name="authService" ref="authService"/>
+        <constructor-arg name="objectMapper" ref="objectMapper"/>
     </bean>
 
 

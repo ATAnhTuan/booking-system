@@ -1,23 +1,39 @@
 package com.bookingSystem.rooms;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@Entity
+@Table(name = "rooms")
 public class Rooms {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "room_guid", unique = true, nullable = false)
     private UUID roomGuid;
+
+    @Column(name = "hotel_guid")
     private UUID hotelGuid;
+
+    @Column(name = "room_name")
     private String roomName;
+
     private String description;
     private String category;
-    private RoomStatus status = RoomStatus.AVAILABLE;
-    private BigDecimal price;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
 
-    public Rooms() {
-    }
+    @Enumerated(EnumType.STRING)
+    private RoomStatus status = RoomStatus.AVAILABLE;
+
+    private BigDecimal price;
+
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
+
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
 
     public Rooms(UUID hotelGuid, String roomName, String description, String category, RoomStatus status, BigDecimal price) {
         this.hotelGuid = hotelGuid;

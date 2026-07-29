@@ -1,19 +1,36 @@
 package com.bookingSystem.hotels;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@Entity
+@Table(name = "hotels")
 public class Hotels {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "hotel_guid", unique = true, nullable = false)
     private UUID hotelGuid;
+
+    @Column(name = "hotel_name")
     private String hotelName;
+
     private String address;
     private String description;
     private String phone;
     private String email;
+
+    @Enumerated(EnumType.STRING)
     private HotelStatus status = HotelStatus.ACTIVE;
+
     private String rating;
+
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
+
+    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
     public Hotels(String hotelName, String address, String description, String phone, String email, HotelStatus status, String rating) {
