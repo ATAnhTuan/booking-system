@@ -1,6 +1,8 @@
 package com.bookingSystem.users;
 
+import com.bookingSystem.exception.ErrorStatus;
 import com.bookingSystem.exception.ResourceNotFoundException;
+import net.bytebuddy.implementation.bytecode.Throw;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -21,10 +23,9 @@ public class UserService {
     public UserResponseDTO getByGuid(UUID guid) {
         return userMapper.toResponseDTO(findUserEntityByGuid(guid));
     }
-
     private User findUserEntityByGuid(UUID guid) {
         return userDAO.findByGuid(guid)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found: " + guid));
+                .orElseThrow(() -> new ResourceNotFoundException(ErrorStatus.USER_NOT_FOUND.name()));
     }
 
     @Transactional
@@ -52,6 +53,12 @@ public class UserService {
 
     @Transactional
     public void deleteUser(UUID guid) {
+        User user = findUserEntityByGuid(guid);
+        userDAO.delete(user);
+    }
+
+    @Transactional
+    public void deactivateUser(UUID guid) {
         User user = findUserEntityByGuid(guid);
         userDAO.delete(user);
     }

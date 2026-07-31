@@ -28,9 +28,6 @@
     <bean id="userController" class="com.bookingSystem.users.UserController">
         <constructor-arg name="userService" ref="userService"/>
     </bean>
-    <bean id="authController" class="com.bookingSystem.auth.AuthController">
-        <constructor-arg name="authService" ref="authService"/>
-    </bean>
     <bean id="hotelController" class="com.bookingSystem.hotels.HotelController">
         <constructor-arg name="hotelService" ref="hotelService"/>
     </bean>

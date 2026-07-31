@@ -1,8 +1,10 @@
 package com.bookingSystem.users;
 
+import com.bookingSystem.exception.ResourceNotFoundException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -32,6 +34,11 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
+    public void deactivate(User user) {
+        sessionFactory.getCurrentSession().update(user);
+    }
+
+    @Override
     public Optional<User> findByGuid(UUID guid) {
         Session session = sessionFactory.getCurrentSession();
         User user = session
@@ -44,7 +51,9 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public List<User> findAll() {
         return sessionFactory.getCurrentSession()
-                .createQuery("from User", User.class)
+                .createQuery("from User where active = ?1 and username <> ?2", User.class)
+                .setParameter(1, true)
+                .setParameter(2, "admin")
                 .list();
     }
 }

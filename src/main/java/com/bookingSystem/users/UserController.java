@@ -25,7 +25,7 @@ public class UserController {
     public ResponseEntity<ApiResponse<UserResponseDTO>> getUser(@PathVariable UUID guid) {
         UserResponseDTO data = userService.getByGuid(guid);
         return ResponseEntity.ok(
-                ApiResponse.success(data, "User found Successfully")
+                ApiResponse.success(data, "Success")
         );
     }
 
@@ -33,7 +33,7 @@ public class UserController {
     public ResponseEntity<ApiResponse<List<UserResponseDTO>>> getUsers() {
         List<UserResponseDTO> data = userService.getAllUsers();
         return ResponseEntity.ok(
-                ApiResponse.success(data, "Users found Successfully")
+                ApiResponse.success(data, "Success")
         );
     }
     @PostMapping
@@ -42,20 +42,25 @@ public class UserController {
         UserResponseDTO data = userService.createUser(userRequestDTO);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(ApiResponse.created(data, "Create Users Success"));
+                .body(ApiResponse.created(data, "Success"));
     }
 
     @PutMapping("/{guid}")
-    public ResponseEntity<ApiResponse<UserResponseDTO>> updateUser(
+    public ResponseEntity<ApiResponse<UserResponseDTO>> updateUser(@Valid
             @PathVariable UUID guid,
             @Valid @RequestBody UserRequestDTO userRequestDTO) {
         UserResponseDTO data = userService.updateUser(guid, userRequestDTO);
-        return ResponseEntity.ok(ApiResponse.success(data, "User Updated Success"));
+        return ResponseEntity.ok(ApiResponse.success(data, "Success"));
     }
 
     @DeleteMapping("/{guid}")
-    public ResponseEntity<Void> deleteUser(@PathVariable UUID guid) {
+    public ResponseEntity<Void> deleteUser(@PathVariable  UUID guid) {
         userService.deleteUser(guid);
+        return ResponseEntity.noContent().build();
+    }
+    @PatchMapping("/{guid}")
+    public ResponseEntity<Void> deactivateUser(@PathVariable  UUID guid) {
+        userService.deactivateUser(guid);
         return ResponseEntity.noContent().build();
     }
 }

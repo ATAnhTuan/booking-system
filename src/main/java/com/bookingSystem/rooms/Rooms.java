@@ -35,6 +35,9 @@ public class Rooms {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    public Rooms() {
+    }
+
     public Rooms(UUID hotelGuid, String roomName, String description, String category, RoomStatus status, BigDecimal price) {
         this.hotelGuid = hotelGuid;
         this.roomName = roomName;

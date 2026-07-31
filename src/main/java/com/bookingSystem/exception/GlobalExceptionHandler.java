@@ -15,10 +15,15 @@ public class GlobalExceptionHandler {
 
     }
 
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ApiResponse<Void>> handleValidation(MethodArgumentNotValidException ex) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(ApiResponse.error(400, "Validation failed"));
+    public ResponseEntity<ApiResponse<Void>> handleValidation(
+            MethodArgumentNotValidException ex) {
+        String message = ex.getBindingResult()
+                .getFieldError()
+                .getDefaultMessage();
+        return ResponseEntity.badRequest()
+                .body(ApiResponse.error(400, message));
     }
 
     @ExceptionHandler(IllegalArgumentException.class)

@@ -4,24 +4,16 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.Pattern;
 
 public class UserRequestDTO {
-    @Pattern(
-            regexp = "^[a-zA-Z0-9_]{3,20}$",
-            message = "Username chỉ được chứa chữ cái, chữ số, dấu gạch dưới và từ 3-20 ký tự"
-    )
     private String username;
-    @Pattern(
-            regexp = "^^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,32}$",
-            message = "Mật khẩu phải dài từ 6-32 ký tự, bao gồm cả chữ cái và chữ số"
-    )
     private String password;
-    @Email(message = "Email không đúng định dạng")
+    @Email(message = "Email ")
     private String email;
     private UserRole role;
     private MemberRank memberRank;
     //    private boolean active;
     @Pattern(
-            regexp = "^(0|\\+84)[3|5|7|8|9][0-9]{8}$",
-            message = "Số điện thoại không đúng định dạng Việt Nam"
+            regexp = "^(0|\\+84)[35789][0-9]{8}$",
+            message = "Phone number invalid "
     )
     private String phone;
 
