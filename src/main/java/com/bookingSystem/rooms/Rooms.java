@@ -1,5 +1,7 @@
 package com.bookingSystem.rooms;
 
+import com.bookingSystem.rooms.roomEnum.RoomStatus;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

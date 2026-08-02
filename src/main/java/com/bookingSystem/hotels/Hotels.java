@@ -1,5 +1,7 @@
 package com.bookingSystem.hotels;
 
+import com.bookingSystem.hotels.hotelEnum.HotelStatus;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.UUID;

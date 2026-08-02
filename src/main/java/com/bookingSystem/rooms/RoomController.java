@@ -1,6 +1,8 @@
 package com.bookingSystem.rooms;
 
 import com.bookingSystem.exception.ApiResponse;
+import com.bookingSystem.rooms.dto.RoomRequestDTO;
+import com.bookingSystem.rooms.dto.RoomResponseDTO;
 import io.swagger.annotations.Api;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,5 +1,8 @@
 package com.bookingSystem.users;
 
+import com.bookingSystem.users.userEnum.MemberRank;
+import com.bookingSystem.users.userEnum.UserRole;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.UUID;

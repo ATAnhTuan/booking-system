@@ -33,12 +33,12 @@
     </bean>
 
     <bean id="flyway" factory-bean="flywayFactory" factory-method="createFlyway" init-method="migrate"/>
-    <bean id="userMapper" class="com.bookingSystem.users.UserMapper">
+    <bean id="userMapper" class="com.bookingSystem.users.dto.UserMapper">
         <constructor-arg ref="passwordEncoder"/>
     </bean>
-    <bean id="hotelMapper" class="com.bookingSystem.hotels.HotelMapper"/>
-    <bean id="roomMapper" class="com.bookingSystem.rooms.RoomMapper"/>
-    <bean id="bookingMapper" class="com.bookingSystem.bookings.BookingMapper"/>
+    <bean id="hotelMapper" class="com.bookingSystem.hotels.dto.HotelMapper"/>
+    <bean id="roomMapper" class="com.bookingSystem.rooms.dto.RoomMapper"/>
+    <bean id="bookingMapper" class="com.bookingSystem.bookings.dto.BookingMapper"/>
     <bean id="imageMapper" class="com.bookingSystem.images.ImageMapper"/>
 
     <bean id="sessionFactory"
@@ -60,16 +60,16 @@
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
-    <bean id="userDaoImpl" class="com.bookingSystem.users.UserDAOImpl">
+    <bean id="userDaoImpl" class="com.bookingSystem.users.dao.UserDAOImpl">
         <constructor-arg name="sessionFactory" ref="sessionFactory" />
     </bean>
-    <bean id="hotelDaoImpl" class="com.bookingSystem.hotels.HotelDAOImpl">
+    <bean id="hotelDaoImpl" class="com.bookingSystem.hotels.dao.HotelDAOImpl">
         <constructor-arg name="sessionFactory" ref="sessionFactory"/>
     </bean>
-    <bean id="roomDaoImpl" class="com.bookingSystem.rooms.RoomDAOImpl">
+    <bean id="roomDaoImpl" class="com.bookingSystem.rooms.dao.RoomDAOImpl">
         <constructor-arg name="sessionFactory" ref="sessionFactory"/>
     </bean>
-    <bean id="bookingDaoImpl" class="com.bookingSystem.bookings.BookingDAOImpl">
+    <bean id="bookingDaoImpl" class="com.bookingSystem.bookings.dao.BookingDAOImpl">
         <constructor-arg name="sessionFactory" ref="sessionFactory"/>
     </bean>
     <bean id="imageDaoImpl" class="com.bookingSystem.images.ImageDAOImpl">
@@ -79,6 +79,7 @@
     <bean id="userService" class="com.bookingSystem.users.UserService">
         <constructor-arg name="userDAO" ref="userDaoImpl"/>
         <constructor-arg name="userMapper" ref="userMapper"/>
+        <constructor-arg name="bCryptPasswordEncoder" ref="passwordEncoder"/>
     </bean>
     <bean id="hotelService" class="com.bookingSystem.hotels.HotelService">
         <constructor-arg name="hotelDAO" ref="hotelDaoImpl"/>

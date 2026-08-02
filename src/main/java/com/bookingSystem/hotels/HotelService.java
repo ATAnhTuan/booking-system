@@ -1,6 +1,10 @@
 package com.bookingSystem.hotels;
 
 import com.bookingSystem.exception.ResourceNotFoundException;
+import com.bookingSystem.hotels.dao.HotelDAO;
+import com.bookingSystem.hotels.dto.HotelMapper;
+import com.bookingSystem.hotels.dto.HotelRequestDTO;
+import com.bookingSystem.hotels.dto.HotelResponseDTO;
 
 import javax.transaction.Transactional;
 import java.util.List;

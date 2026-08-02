@@ -1,5 +1,7 @@
 package com.bookingSystem.bookings;
 
+import com.bookingSystem.bookings.bookingEnum.BookingStatus;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;

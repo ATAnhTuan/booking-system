@@ -2,11 +2,14 @@ package com.bookingSystem.users;
 
 
 import com.bookingSystem.exception.ApiResponse;
+import com.bookingSystem.users.dto.UserRequestDTO;
+import com.bookingSystem.users.dto.UserResponseDTO;
 import io.swagger.annotations.Api;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
@@ -36,6 +39,11 @@ public class UserController {
                 ApiResponse.success(data, "Success")
         );
     }
+    @GetMapping("/header")
+        public String Header(HttpServletRequest request) {
+        return request.getHeader("User-Agent");
+        }
+
     @PostMapping
     public ResponseEntity<ApiResponse<UserResponseDTO>> createUser(
             @Valid @RequestBody UserRequestDTO userRequestDTO) {
