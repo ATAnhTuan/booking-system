@@ -42,6 +42,7 @@
     </bean>
     <bean id="authentication" class="com.bookingSystem.auth.Authentication">
         <constructor-arg name="userService" ref="userService"/>
+        <constructor-arg name="authenticationService" ref="authenticationService"/>
     </bean>
 
 </beans>

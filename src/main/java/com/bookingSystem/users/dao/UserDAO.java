@@ -15,5 +15,5 @@ public interface UserDAO {
     Optional<User> findByGuid(UUID guid);
     Optional<User> login(String gmail);
     List<User> findAll();
-
+    User getByGmail(String gmail);
 }

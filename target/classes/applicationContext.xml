@@ -97,7 +97,9 @@
         <constructor-arg name="imageDAO" ref="imageDaoImpl"/>
         <constructor-arg name="imageMapper" ref="imageMapper"/>
     </bean>
+    <bean id="authenticationService" class="com.bookingSystem.auth.AuthenticationService">
 
+    </bean>
 
 
 </beans>

@@ -37,6 +37,8 @@ public class UserDAOImpl implements UserDAO {
         sessionFactory.getCurrentSession().update(user);
     }
 
+
+
     @Override
     public Optional<User> findByGuid(UUID guid) {
         Session session = sessionFactory.getCurrentSession();
@@ -54,6 +56,13 @@ public class UserDAOImpl implements UserDAO {
                 .setParameter(1, true)
                 .setParameter(2, "admin")
                 .list();
+    }
+
+    @Override
+    public User getByGmail(String gmail) {
+        Session session = sessionFactory.getCurrentSession();
+        User user =  session.createQuery("from User where email = ?1", User.class).setParameter(1, gmail).uniqueResult();
+        return user;
     }
 
     @Override
