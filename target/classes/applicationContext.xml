@@ -97,9 +97,12 @@
         <constructor-arg name="imageDAO" ref="imageDaoImpl"/>
         <constructor-arg name="imageMapper" ref="imageMapper"/>
     </bean>
-    <bean id="authenticationService" class="com.bookingSystem.auth.AuthenticationService">
-
+    <bean id="jwtTokenProvider" class="com.bookingSystem.auth.JwtTokenProvider">
     </bean>
-
+    <bean id="authService" class="com.bookingSystem.auth.AuthService">
+        <constructor-arg name="bCryptPasswordEncoder" ref="passwordEncoder"/>
+        <constructor-arg name="jwtTokenProvider" ref="jwtTokenProvider"/>
+        <constructor-arg name="userDAO" ref="userDaoImpl"/>
+    </bean>
 
 </beans>

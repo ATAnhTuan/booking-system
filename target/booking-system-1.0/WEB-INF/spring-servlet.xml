@@ -40,9 +40,8 @@
     <bean id="imageController" class="com.bookingSystem.images.ImageController">
         <constructor-arg name="imageService" ref="imageService"/>
     </bean>
-    <bean id="authentication" class="com.bookingSystem.auth.Authentication">
-        <constructor-arg name="userService" ref="userService"/>
-        <constructor-arg name="authenticationService" ref="authenticationService"/>
+    <bean name="authController" class="com.bookingSystem.auth.AuthController" >
+        <constructor-arg name="authService" ref="authService"/>
     </bean>
 
 </beans>

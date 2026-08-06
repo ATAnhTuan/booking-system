@@ -59,16 +59,9 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public User getByGmail(String gmail) {
+    public Optional<User> findByGmail(String email) {
         Session session = sessionFactory.getCurrentSession();
-        User user =  session.createQuery("from User where email = ?1", User.class).setParameter(1, gmail).uniqueResult();
-        return user;
-    }
-
-    @Override
-    public Optional<User> login(String gmail) {
-        Session session = sessionFactory.getCurrentSession();
-        User user = session.createQuery("from User where email = ?1", User.class).setParameter(1, gmail).uniqueResult();
-        return  Optional.ofNullable(user);
+        User user =  session.createQuery("from User where email = ?1", User.class).setParameter(1, email).uniqueResult();
+        return Optional.ofNullable(user);
     }
 }

@@ -13,7 +13,6 @@ public interface UserDAO {
     void delete(User user);
     void deactivate(User user);
     Optional<User> findByGuid(UUID guid);
-    Optional<User> login(String gmail);
     List<User> findAll();
-    User getByGmail(String gmail);
+    Optional<User> findByGmail(String gmail);
 }

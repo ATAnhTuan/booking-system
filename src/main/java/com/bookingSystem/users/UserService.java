@@ -1,6 +1,6 @@
 package com.bookingSystem.users;
 
-import com.bookingSystem.auth.AuthenticationService;
+import com.bookingSystem.auth.JwtTokenProvider;
 import com.bookingSystem.exception.ErrorStatus;
 import com.bookingSystem.exception.ResourceNotFoundException;
 import com.bookingSystem.users.dao.UserDAO;
@@ -14,6 +14,7 @@ import org.springframework.web.server.ResponseStatusException;
 import javax.transaction.Transactional;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -29,37 +30,42 @@ public class UserService {
         this.userMapper = userMapper;
     }
 
-
     @Transactional
     public UserResponseDTO getByGuid(UUID guid) {
-        return userMapper.toResponseDTO(findUserEntityByGuid(guid));
+        return userMapper.toResponseDTO(findUserByGuid(guid));
     }
 
-    private User findUserEntityByGuid(UUID guid) {
+    private User findUserByGuid(UUID guid) {
         return userDAO.findByGuid(guid)
                 .orElseThrow(() -> new ResourceNotFoundException(ErrorStatus.USER_NOT_FOUND.name()));
     }
 
     @Transactional
-    public HashMap<String,String> login(String gmail, String password) {
-        User user = userDAO.login(gmail)
-                .orElseThrow(() -> new ResourceNotFoundException(ErrorStatus.USER_NOT_FOUND.name()));
-
-        UserResponseDTO userResponseDTO = userMapper.toResponseDTO(user);
-
-        if (!bCryptPasswordEncoder.matches(password, userResponseDTO.getPassword())) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
-        }
-
-        String accessToken = new AuthenticationService().generateAccessToken(user);
-        String refreshToken = new AuthenticationService().generateRefreshToken(user);
-
-        HashMap<String,String> response = new HashMap<>();
-        response.put("accessToken", accessToken);
-        response.put("refreshToken", refreshToken);
-
-        return response;
+    public UserResponseDTO findUserByEmail(String email) {
+        Optional<User> user = userDAO.findByGmail(email);
+        return userMapper.toResponseDTO(user.orElseThrow(() -> new ResourceNotFoundException(ErrorStatus.USER_NOT_FOUND.name())));
     }
+
+//    @Transactional
+//    public HashMap<String,String> login(String gmail, String password) {
+//        User user = userDAO.login(gmail)
+//                .orElseThrow(() -> new ResourceNotFoundException(ErrorStatus.USER_NOT_FOUND.name()));
+//
+//        UserResponseDTO userResponseDTO = userMapper.toResponseDTO(user);
+//
+//        if (!bCryptPasswordEncoder.matches(password, userResponseDTO.getPassword())) {
+//            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+//        }
+//
+//        String accessToken = jwtTokenProvider.generateAccessToken(user);
+//        String refreshToken = jwtTokenProvider.generateRefreshToken(user);
+//
+//        HashMap<String,String> response = new HashMap<>();
+//        response.put("accessToken", accessToken);
+//        response.put("refreshToken", refreshToken);
+//
+//        return response;
+//    }
 
     @Transactional
     public List<UserResponseDTO> getAllUsers() {
@@ -78,7 +84,7 @@ public class UserService {
 
     @Transactional
     public UserResponseDTO updateUser(UUID guid, UserRequestDTO userRequestDTO) {
-        User existingUser = findUserEntityByGuid(guid);
+        User existingUser = findUserByGuid(guid);
         userMapper.updateEntityFromDTO(userRequestDTO, existingUser);
         User updatedUser = userDAO.update(existingUser);
         return userMapper.toResponseDTO(updatedUser);
@@ -86,13 +92,13 @@ public class UserService {
 
     @Transactional
     public void deleteUser(UUID guid) {
-        User user = findUserEntityByGuid(guid);
+        User user = findUserByGuid(guid);
         userDAO.delete(user);
     }
 
     @Transactional
     public void deactivateUser(UUID guid) {
-        User user = findUserEntityByGuid(guid);
+        User user = findUserByGuid(guid);
         userDAO.deactivate(user);
     }
 }

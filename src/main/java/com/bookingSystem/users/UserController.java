@@ -39,10 +39,11 @@ public class UserController {
                 ApiResponse.success(data, "Success")
         );
     }
+
     @GetMapping("/header")
-        public String Header(HttpServletRequest request) {
+    public String Header(HttpServletRequest request) {
         return request.getHeader("User-Agent");
-        }
+    }
 
     @PostMapping
     public ResponseEntity<ApiResponse<UserResponseDTO>> createUser(
@@ -55,19 +56,20 @@ public class UserController {
 
     @PutMapping("/{guid}")
     public ResponseEntity<ApiResponse<UserResponseDTO>> updateUser(@Valid
-            @PathVariable UUID guid,
-            @Valid @RequestBody UserRequestDTO userRequestDTO) {
+                                                                   @PathVariable UUID guid,
+                                                                   @Valid @RequestBody UserRequestDTO userRequestDTO) {
         UserResponseDTO data = userService.updateUser(guid, userRequestDTO);
         return ResponseEntity.ok(ApiResponse.success(data, "Success"));
     }
 
     @DeleteMapping("/{guid}")
-    public ResponseEntity<Void> deleteUser(@PathVariable  UUID guid) {
+    public ResponseEntity<Void> deleteUser(@PathVariable UUID guid) {
         userService.deleteUser(guid);
         return ResponseEntity.noContent().build();
     }
+
     @PatchMapping("/{guid}")
-    public ResponseEntity<Void> deactivateUser(@PathVariable  UUID guid) {
+    public ResponseEntity<Void> deactivateUser(@PathVariable UUID guid) {
         userService.deactivateUser(guid);
         return ResponseEntity.noContent().build();
     }
