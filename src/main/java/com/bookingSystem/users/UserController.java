@@ -1,9 +1,11 @@
 package com.bookingSystem.users;
 
 
+import com.bookingSystem.auth.RequireRoles;
 import com.bookingSystem.exception.ApiResponse;
 import com.bookingSystem.users.dto.UserRequestDTO;
 import com.bookingSystem.users.dto.UserResponseDTO;
+import com.bookingSystem.users.userEnum.UserRole;
 import io.swagger.annotations.Api;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +27,7 @@ public class UserController {
     }
 
     @GetMapping("/{guid}")
+    @RequireRoles({UserRole.ADMIN, UserRole.MANAGER})
     public ResponseEntity<ApiResponse<UserResponseDTO>> getUser(@PathVariable UUID guid) {
         UserResponseDTO data = userService.getByGuid(guid);
         return ResponseEntity.ok(
@@ -33,6 +36,7 @@ public class UserController {
     }
 
     @GetMapping()
+    @RequireRoles({UserRole.ADMIN, UserRole.MANAGER})
     public ResponseEntity<ApiResponse<List<UserResponseDTO>>> getUsers() {
         List<UserResponseDTO> data = userService.getAllUsers();
         return ResponseEntity.ok(
@@ -55,6 +59,7 @@ public class UserController {
     }
 
     @PutMapping("/{guid}")
+    @RequireRoles({UserRole.ADMIN, UserRole.MANAGER})
     public ResponseEntity<ApiResponse<UserResponseDTO>> updateUser(@Valid
                                                                    @PathVariable UUID guid,
                                                                    @Valid @RequestBody UserRequestDTO userRequestDTO) {
@@ -63,12 +68,14 @@ public class UserController {
     }
 
     @DeleteMapping("/{guid}")
+    @RequireRoles(UserRole.ADMIN)
     public ResponseEntity<Void> deleteUser(@PathVariable UUID guid) {
         userService.deleteUser(guid);
         return ResponseEntity.noContent().build();
     }
 
     @PatchMapping("/{guid}")
+    @RequireRoles({UserRole.ADMIN, UserRole.MANAGER})
     public ResponseEntity<Void> deactivateUser(@PathVariable UUID guid) {
         userService.deactivateUser(guid);
         return ResponseEntity.noContent().build();

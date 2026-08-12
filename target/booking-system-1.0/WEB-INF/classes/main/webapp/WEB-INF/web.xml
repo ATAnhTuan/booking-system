@@ -18,6 +18,20 @@
         </listener-class>
     </listener>
 
+    <filter>
+        <filter-name>jwtAuthenticationFilter</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+        <init-param>
+            <param-name>contextAttribute</param-name>
+            <param-value>org.springframework.web.servlet.FrameworkServlet.CONTEXT.dispatcher</param-value>
+        </init-param>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>jwtAuthenticationFilter</filter-name>
+        <url-pattern>/api/*</url-pattern>
+    </filter-mapping>
+
     <!-- Dispatcher Servlet -->
     <servlet>
         <servlet-name>dispatcher</servlet-name>

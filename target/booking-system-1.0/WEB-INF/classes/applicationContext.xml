@@ -98,6 +98,16 @@
         <constructor-arg name="imageMapper" ref="imageMapper"/>
     </bean>
     <bean id="jwtTokenProvider" class="com.bookingSystem.auth.JwtTokenProvider">
+        <property name="key" value="${jwt.secret}"/>
+        <property name="durationOfExistenceAccess" value="${jwt.access-token-validity-ms}"/>
+        <property name="durationOfExistenceRefresh" value="${jwt.refresh-token-validity-ms}"/>
+    </bean>
+    <bean id="requestMappingHandlerMapping" class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
+    </bean>
+    <bean id="jwtAuthenticationFilter" class="com.bookingSystem.auth.JwtAuthenticationFilter">
+        <constructor-arg name="jwtTokenProvider" ref="jwtTokenProvider"/>
+        <property name="requestMappingHandlerMapping"
+                  ref="requestMappingHandlerMapping"/>
     </bean>
     <bean id="authService" class="com.bookingSystem.auth.AuthService">
         <constructor-arg name="bCryptPasswordEncoder" ref="passwordEncoder"/>

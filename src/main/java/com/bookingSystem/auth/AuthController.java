@@ -29,7 +29,6 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity login(@Valid @RequestBody AuthRequestDTO request) {
-
         return ResponseEntity.ok(ApiResponse.success(authService.login(request),"Success"));
     }
 }

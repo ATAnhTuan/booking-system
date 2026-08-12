@@ -1,8 +1,10 @@
 package com.bookingSystem.rooms;
 
+import com.bookingSystem.auth.RequireRoles;
 import com.bookingSystem.exception.ApiResponse;
 import com.bookingSystem.rooms.dto.RoomRequestDTO;
 import com.bookingSystem.rooms.dto.RoomResponseDTO;
+import com.bookingSystem.users.userEnum.UserRole;
 import io.swagger.annotations.Api;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +35,7 @@ public class RoomController {
     }
 
     @PostMapping
+    @RequireRoles({UserRole.ADMIN, UserRole.MANAGER})
     public ResponseEntity<ApiResponse<RoomResponseDTO>> createRoom(@Valid @RequestBody RoomRequestDTO request) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -40,6 +43,7 @@ public class RoomController {
     }
 
     @PutMapping("/{guid}")
+    @RequireRoles({UserRole.ADMIN, UserRole.MANAGER, UserRole.STAFF})
     public ResponseEntity<ApiResponse<RoomResponseDTO>> updateRoom(
             @PathVariable UUID guid,
             @Valid @RequestBody RoomRequestDTO request) {
@@ -47,6 +51,7 @@ public class RoomController {
     }
 
     @DeleteMapping("/{guid}")
+    @RequireRoles({UserRole.ADMIN, UserRole.MANAGER})
     public ResponseEntity<Void> deleteRoom(@PathVariable UUID guid) {
         roomService.deleteRoom(guid);
         return ResponseEntity.noContent().build();

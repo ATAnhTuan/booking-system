@@ -44,4 +44,9 @@
         <constructor-arg name="authService" ref="authService"/>
     </bean>
 
+    <bean id="jwtAuthenticationFilter" class="com.bookingSystem.auth.JwtAuthenticationFilter">
+        <constructor-arg name="jwtTokenProvider" ref="jwtTokenProvider"/>
+        <property name="requestMappingHandlerMapping" ref="requestMappingHandlerMapping"/>
+    </bean>
+
 </beans>

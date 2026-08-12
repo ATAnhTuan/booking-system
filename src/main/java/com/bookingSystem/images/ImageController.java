@@ -1,6 +1,8 @@
 package com.bookingSystem.images;
 
+import com.bookingSystem.auth.RequireRoles;
 import com.bookingSystem.exception.ApiResponse;
+import com.bookingSystem.users.userEnum.UserRole;
 import io.swagger.annotations.Api;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +33,7 @@ public class ImageController {
     }
 
     @PostMapping
+    @RequireRoles({UserRole.ADMIN, UserRole.MANAGER})
     public ResponseEntity<ApiResponse<ImageResponseDTO>> createImage(@Valid @RequestBody ImageRequestDTO request) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -38,6 +41,7 @@ public class ImageController {
     }
 
     @PutMapping("/{guid}")
+    @RequireRoles({UserRole.ADMIN, UserRole.MANAGER})
     public ResponseEntity<ApiResponse<ImageResponseDTO>> updateImage(
             @PathVariable UUID guid,
             @Valid @RequestBody ImageRequestDTO request) {
@@ -45,6 +49,7 @@ public class ImageController {
     }
 
     @DeleteMapping("/{guid}")
+    @RequireRoles({UserRole.ADMIN, UserRole.MANAGER})
     public ResponseEntity<Void> deleteImage(@PathVariable UUID guid) {
         imageService.deleteImage(guid);
         return ResponseEntity.noContent().build();

@@ -35,8 +35,8 @@ public class AuthService {
 
         response.setAccessToken(jwtTokenProvider.generateAccessToken(user));
         response.setRefreshToken(jwtTokenProvider.generateRefreshToken(user));
-        response.setExpiresIn(jwtTokenProvider.DURATION_OF_EXISTENCE_ACCESS);
-        response.setTokenType(jwtTokenProvider.TOKEN_TYPE);
+        response.setExpiresIn(jwtTokenProvider.getDurationOfExistenceAccess());
+        response.setTokenType(jwtTokenProvider.getTokenType());
 
         return response;
     }
@@ -48,8 +48,8 @@ public class AuthService {
         AuthResponseDTO response = new AuthResponseDTO();
         response.setAccessToken(jwtTokenProvider.generateAccessToken(user));
         response.setRefreshToken(jwtTokenProvider.generateRefreshToken(user));
-        response.setExpiresIn(jwtTokenProvider.DURATION_OF_EXISTENCE_ACCESS);
-        response.setTokenType(jwtTokenProvider.TOKEN_TYPE);
+        response.setExpiresIn(jwtTokenProvider.getDurationOfExistenceAccess());
+        response.setTokenType(jwtTokenProvider.getTokenType());
 
         return response;
     }
