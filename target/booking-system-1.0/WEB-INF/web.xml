@@ -37,5 +37,16 @@
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>/api/*</url-pattern>
     </servlet-mapping>
+    <filter>
+        <filter-name>jwtAuthenticationFilter</filter-name>
+        <filter-class>
+            org.springframework.web.filter.DelegatingFilterProxy
+        </filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>jwtAuthenticationFilter</filter-name>
+        <url-pattern>/api/*</url-pattern>
+    </filter-mapping>
 
 </web-app>

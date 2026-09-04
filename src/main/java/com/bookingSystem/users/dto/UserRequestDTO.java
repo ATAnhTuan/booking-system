@@ -7,6 +7,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.Pattern;
 
 public class UserRequestDTO {
+    private String name;
     private String username;
     private String password;
     @Email(message = "Email ")

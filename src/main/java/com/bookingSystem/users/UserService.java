@@ -99,6 +99,7 @@ public class UserService {
     @Transactional
     public void deactivateUser(UUID guid) {
         User user = findUserByGuid(guid);
+        user.setActive(false);
         userDAO.deactivate(user);
     }
 }

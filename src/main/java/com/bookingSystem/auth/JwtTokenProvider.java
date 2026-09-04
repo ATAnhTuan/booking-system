@@ -2,8 +2,6 @@ package com.bookingSystem.auth;
 
 import com.bookingSystem.exception.ErrorStatus;
 import com.bookingSystem.users.User;
-import com.bookingSystem.users.UserService;
-import com.bookingSystem.users.dto.UserResponseDTO;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -74,5 +72,6 @@ public class JwtTokenProvider {
         }
         return claims;
     }
+
 
 }

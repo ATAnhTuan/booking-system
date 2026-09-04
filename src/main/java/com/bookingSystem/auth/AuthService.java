@@ -27,7 +27,6 @@ public class AuthService {
     @Transactional
     public AuthResponseDTO login(@Valid AuthRequestDTO request) {
         User user = userDAO.findByGmail(request.getGmail()).orElseThrow(() -> new ResourceNotFoundException(ErrorStatus.USER_NOT_FOUND.name()));
-
         if (!bCryptPasswordEncoder.matches(request.getPassword(), user.getPassword())) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, ErrorStatus.WRONG_PASSWORD.name());
         }

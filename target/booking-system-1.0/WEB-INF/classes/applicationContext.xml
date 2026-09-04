@@ -104,5 +104,8 @@
         <constructor-arg name="jwtTokenProvider" ref="jwtTokenProvider"/>
         <constructor-arg name="userDAO" ref="userDaoImpl"/>
     </bean>
+    <bean id="jwtAuthenticationFilter" class="com.bookingSystem.auth.JwtAuthenticationFilter">
+        <constructor-arg name="jwtTokenProvider" ref="jwtTokenProvider"/>
+    </bean>
 
 </beans>
