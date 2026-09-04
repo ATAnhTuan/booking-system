@@ -33,13 +33,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             String email = tokenValid.getSubject();
             String role  = tokenValid.get("role").toString();
 
-            request.setAttribute("email", email);
-            request.setAttribute("role", role);
-            System.out.println("========== JWT ==========");
-            System.out.println("Token: " + token);
-            System.out.println("Email: " + email);
-            System.out.println("Role: " + role);
-            System.out.println("=========================");
             filterChain.doFilter(request, response);
         }catch (Exception ex){
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);

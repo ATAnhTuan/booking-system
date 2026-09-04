@@ -4,11 +4,13 @@ import com.bookingSystem.users.userEnum.MemberRank;
 import com.bookingSystem.users.userEnum.UserRole;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
 public class UserRequestDTO {
     private String name;
     private String username;
+    @NotBlank
     private String password;
     @Email(message = "Email ")
     private String email;

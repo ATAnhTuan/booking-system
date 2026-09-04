@@ -28,9 +28,6 @@ public class UserMapper {
         userResponseDTO.setMemberRank(userEntity.getMemberRank());
         userResponseDTO.setActive(userEntity.getActive());
         userResponseDTO.setCreatedAt(userEntity.getCreatedAt());
-        if (userEntity.getPassword() != null) {
-            userResponseDTO.setPassword(userEntity.getPassword());
-        }
         return userResponseDTO;
     }
 

@@ -1,8 +1,10 @@
 package com.bookingSystem.hotels;
 
+import com.bookingSystem.auth.RequireRoles;
 import com.bookingSystem.exception.ApiResponse;
 import com.bookingSystem.hotels.dto.HotelRequestDTO;
 import com.bookingSystem.hotels.dto.HotelResponseDTO;
+import com.bookingSystem.users.userEnum.UserRole;
 import io.swagger.annotations.Api;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +35,7 @@ public class HotelController {
     }
 
     @PostMapping
+    @RequireRoles({UserRole.ADMIN, UserRole.MANAGER})
     public ResponseEntity<ApiResponse<HotelResponseDTO>> createHotel(@Valid @RequestBody HotelRequestDTO request) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -40,6 +43,7 @@ public class HotelController {
     }
 
     @PutMapping("/{guid}")
+    @RequireRoles({UserRole.ADMIN, UserRole.MANAGER})
     public ResponseEntity<ApiResponse<HotelResponseDTO>> updateHotel(
             @PathVariable UUID guid,
             @Valid @RequestBody HotelRequestDTO request) {
@@ -47,6 +51,7 @@ public class HotelController {
     }
 
     @DeleteMapping("/{guid}")
+    @RequireRoles(UserRole.ADMIN)
     public ResponseEntity<Void> deleteHotel(@PathVariable UUID guid) {
         hotelService.deleteHotel(guid);
         return ResponseEntity.noContent().build();
